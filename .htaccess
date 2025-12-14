@@ -1,0 +1,17 @@
+# 🔒 Desactivar listado de directorios
+Options -Indexes
+
+# 🔐 Proteger archivos ocultos (.env, etc.)
+<Files .*>
+    Require all denied
+</Files>
+
+RewriteEngine On
+
+# Si el archivo o carpeta existe en public_html, úsalo
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# TODO lo demás va a Laravel (public/index.php)
+RewriteRule ^(.*)$ public/index.php [L,QSA]
